@@ -128,7 +128,7 @@
   \texttt{elizasteprene@gmail.com}}
 %mandatory. First: Use abbreviated first/middle names.
 %Second (only in severe cases): Use first author plus 'et al.'
-\authorrunning{E. Chambers, C. Fillmore, S.S. Mukherjee, R. Roy,   }
+\authorrunning{E. Chambers, C. Fillmore, S.S. Mukherjee, R. Roy, E. Stephenson, and M. Wintraecken}
 % \ArticleNo{100}
 
 % \relatedversion{arXiv:????.?????} % Related version of a paper, e.g. a link to the full version in arxiv
@@ -217,7 +217,7 @@ For a $p \in \mathbb{R}^d$ we can consider the (Euclidean) distance function to 
 
 \subsection{Focal and Symmetry Set}
 
-To define the focal set in its entirety is beyond the scope of this paper, so we will stick to the 2D case which the tool is built for. In 2D the focal set is also called the \textit{evolute} of the curve. Following the definition given by Porteous \cite{porteous2001geometric}, the evolute is defined as the locus of the centers of curvature of the curve.
+To define the focal set in $\mathbb{R}^d$ is beyond the scope of this paper, so we will stick to the 2D case which the tool is built for. In 2D the focal set is also called the \textit{evolute} of the curve. Following the definition given by Porteous \cite{porteous2001geometric}, the evolute is defined as the locus of the centers of curvature of the curve.
 
 Let $\mathcal{M}$ be a smooth plane curve parameterized by arc length $s$, given by $\gamma(s)$. Let $\mathbf{t}(s) = \gamma'(s)$ be the unit tangent vector and $\mathbf{n}(s)$ be the unit normal vector obtained by rotating $\mathbf{t}(s)$ by $90^\circ$ counter-clockwise.
 
@@ -433,7 +433,8 @@ $\mathcal{S} \gets \emptyset$\;
 
 \subsection{Vineyard Computation}
 
-The vineyard $\mathcal{V}$ is constructed by stack-wise concatenation of persistence diagrams generated from a parameterized family of distance functions. There has been methods proposed by e.g. Dey et al. \cite{tamalrevisit} to compute vineyards effectively, but we go for a more primitive approach. In our tool, we parameterize the filtration by moving the source point $\gamma(t)$ along a circular path of user-defined radius and center.
+The vineyard $\mathcal{V}$ is constructed by stack-wise concatenation of persistence diagrams generated from a parameterized family of distance functions. Methods have been proposed by e.g. Dey et al. \cite{tamalrevisit} to compute vineyards effectively, but an elementary approach suffices here. %we go for a more primitive approach. 
+In our tool, we parameterize the filtration by moving the source point $\gamma(t)$ along a circular path of user-defined radius and center.
 
 \subparagraph{Persistence}
 For a fixed $t$, we compute persistence using a Union-Find based algorithm on the lower star filtration of the squared distance function $f_\theta(p) = d_{\mathbb{E}}^2(p,\gamma(t))|_\M$. As we iterate through points $p \in \mathcal{P}$ in increasing order of distance, components are merged. The ``Elder Rule'' is applied to pair the birth time (distance) of a merging component with the current distance as its death time.

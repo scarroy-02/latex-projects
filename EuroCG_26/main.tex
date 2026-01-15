@@ -107,10 +107,10 @@
     \kern.5pt#1\kern.5pt}}
 
 % Author metadata::begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{A Visualization Tool: For Symmetry Sets and Vineyards\footnote{This work has been supported by the ANR grant StratMesh, ANR-24-CE48-1899, by NSF award 2444309, and the welcome package from IDEX of the Université Côte d’Azur, ANR-15-IDEX-01.}}
+\title{Bouquet : A Visualization Tool for Symmetry Sets and Vineyards\footnote{This work has been supported by the ANR grant StratMesh, ANR-24-CE48-1899, by NSF award 2444309, and the welcome package from IDEX of the Université Côte d’Azur, ANR-15-IDEX-01.}}
 %optional, in case that the title is too long;
 %the running title should fit into the top page column
-\titlerunning{A Visualization Tool: For Symmetry Sets and Vineyards}
+\titlerunning{Bouquet : A Visualization Tool for Symmetry Sets and Vineyards}
 
 \author[1]{Erin Chambers}
 \author[2]{Christopher Fillmore}
@@ -162,9 +162,9 @@
 
   % While the Persistent Homology Transform (PHT) is a well-known descriptor in shape analysis, its variant—the Radial Persistence Transform (RPT)—provides a more nuanced look at a shape's ambient geometric influence.
   The Persistent Homology Transform (PHT) has emerged as a powerful topological summary for shape analysis, capturing multiscale geometric information by scanning a shape along all possible directions. 
-  In this paper we study a close variant namely the Radial Persistence Transform (RPT). The RPT maps a point $x$ in the ambient space to the persistence diagram of the squared Euclidean distance function $d_\mathbb{E}^2  (\cdot , x) |_{\M}$ restricted to a manifold $\mathcal{M}$. Results by e.g. Bruce, Giblin, and Gibson and Porteous establish that the topology of this distance function, and hence the persistence diagram, undergoes changes if $x$ traverses the symmetry set and focal set.
+  In this paper we study a close variant, namely the Radial Persistence Transform (RPT). The RPT maps a point $x$ in the ambient space to the persistence diagram of the squared Euclidean distance function $d_\mathbb{E}^2  (\cdot , x) |_{\M}$ restricted to a manifold $\mathcal{M}$. Previous results by Bruce, Giblin, and Gibson, and by Porteous, establish that the topology of this distance function, and hence the persistence diagram, undergoes changes if $x$ traverses the symmetry set and focal set.
 
-We present an interactive web-based 2D tool designed to explore these transitions through the lens of vineyards. By parameterizing $x$ along a user-defined loop $\gamma$, our tool tracks the continuous evolution of persistence diagrams, revealing the complex ``braiding'' patterns and monodromy in the vineyard recently characterized by Chambers et al. [SODA 26].
+We present an interactive web-based 2D tool, Bouquet2D, designed to explore these transitions through the lens of vineyards. By parameterizing $x$ along a user-defined loop $\gamma$, our tool tracks the continuous evolution of persistence diagrams, revealing the complex ``braiding'' patterns and monodromy in the vineyard recently characterized by Chambers et al. [SODA 26].
 
 The tool features a real-time spline-based interface, allowing researchers to deform $\M$ and observe how geometric bifurcations manifest as topological events in the vineyard. By exhibiting the relation between the symmetry and focal set and the topology of the vineyard, this software provides a visual framework for investigating the origin of topology in vineyards.
    % users to observe how geometric features dictate topological events.
@@ -179,14 +179,14 @@ The tool features a real-time spline-based interface, allowing researchers to de
 
 Vineyards, which are time-varying persistence diagrams arising from one-parameter families of filtrations, have found applications across topological data analysis \cite{Bergomi2020, DeeAlgar2021, Yoo2016}. By stability, points in persistence diagrams vary continuously with the parameter, tracing out curves called vines \cite{CohenSteiner2006, turner2023representing}. When the parameter space is periodic, we obtain a closed vineyard.
 
-Recent work has revealed much topological complexity in vineyards. Arya et al. \cite{Arya2024} exhibited closed vineyards with monodromy, while \cite{chambers2025braidingvineyards} showed that any monodromy occurs in some closed vineyard. Moreover, \cite{chambers2025braidingvineyards} showed that given a knot, there exists a manifold and a family of distance functions restricted to the manifold such that the corresponding closed vineyard contains the given knot. { The construction of \cite{chambers2025braidingvineyards} is performed in the context of the Radial Distance Transform (RDT), i.e. given fixed a manifold $\M\subset \mathbb{R}^d$ and a point $x \in \mathbb{R}^d$ (which will be varied later along a curve $\gamma$ to generate a vineyard), one considers the persistence diagram of (squared) Euclidean distance function restricted to $\M$, that is $d_\mathbb{E}^2  (\cdot , x) |_{\M}$.  } 
+Recent work has revealed much topological complexity in vineyards. Arya et al. \cite{Arya2024} exhibited closed vineyards with monodromy, while \cite{chambers2025braidingvineyards} showed that any monodromy occurs in some closed vineyard. Moreover, \cite{chambers2025braidingvineyards} showed that, given a knot, there exists a manifold and a family of distance functions restricted to the manifold such that the corresponding closed vineyard contains the given knot. { The construction of \cite{chambers2025braidingvineyards} is performed in the context of the Radial Distance Transform (RDT), i.e. given fixed a manifold $\M\subset \mathbb{R}^d$ and a point $x \in \mathbb{R}^d$ (which will be varied later along a curve $\gamma$ to generate a vineyard), one considers the persistence diagram of the (squared) Euclidean distance function restricted to $\M$, that is, $d_\mathbb{E}^2  (\cdot , x) |_{\M}$.  } 
 %MW the following is nice, but not strictly necessary to understand the rest of the paper
 %Since knot recognition is computationally hard \cite{Ichihara2023,hass1997algorithms, Lackenby2021, Koenig2021}, this implies that comparing closed vineyards is inherently difficult.
 
 
 
 
-{On the other hand it is known \cite{Bruce1985symmetry,porteous1971normal} that the bifurcation set of the function $d_\mathbb{E}^2  (\cdot , x) |_{\M}$ is the union of the focal and symmetry sets (which will be defined below). The bifurcation set is set of points where topological changes occur. This leads to the natural question: 
+{On the other hand it is known \cite{Bruce1985symmetry,porteous1971normal} that the bifurcation set of the function $d_\mathbb{E}^2  (\cdot , x) |_{\M}$ is the union of the focal and symmetry sets (which will be defined below). The bifurcation set is the set of points where topological changes occur. This leads to the natural question: 
 
 \textbf{How is the topology of the focal and symmetry sets (the bifurcation set) related to the topology of the vineyard? }
 } 
@@ -206,18 +206,18 @@ Recent work has revealed much topological complexity in vineyards. Arya et al. \
 % \subparagraph{TO INCLUDE:} Why useful - study changes in topology from the experimental viewpoint
 
 %These results motivate the need for tools that allow researchers to experimentally explore vineyard topology and its relation to the symmetry and focal sets, i.e. the bifurcation set. 
-In this paper, we present a 2D visualization tool hosted at \href{https://www.rohitroy.me/symmetry-set-visualizer/}{\texttt{symmetry-set-visualizer}}\footnote{https://www.rohitroy.me/symmetry-set-visualizer/} to study this relationship for explicit examples. %for focal and symmetry sets, and study the topology of vineyards as the family of filtrations are altered. 
+In this paper, we present a 2D visualization tool hosted at \href{https://www.rohitroy.me/symmetry-set-visualizer/bouquet2d.html}{\texttt{Bouquet2D}}\footnote{https://www.rohitroy.me/symmetry-set-visualizer/bouquet2d.html} to study this relationship for explicit examples. %for focal and symmetry sets, and study the topology of vineyards as the family of filtrations are altered. 
 More precisely, our tool enables interactive study of how topological features—such as vine crossings, monodromy, and braiding—emerge and evolve, providing geometric intuition that guides theoretical analysis.
 
 \section{Preliminaries}
 
 \begin{definition}[Restricted distance function]
-For a $p \in \mathbb{R}^d$ we can consider the (Euclidean) distance function to this point $d_\mathbb{E} (\cdot,p): \mathbb{R}^d \to \mathbb{R}: x \mapsto d_\mathbb{E} (x, p)$. Let $\M \subset \mathbb{R}^d$ be smooth manifold, then we call the distance function restricted to $\M$, that is $d_\mathbb{E}  (\cdot ,p) |_\M  : \M \to \mathbb{R}: x \mapsto d_\mathbb{E} (x, p)$, the restricted distance function.   
+For a $p \in \mathbb{R}^d$ we can consider the (Euclidean) distance function from this point $d_\mathbb{E} (\cdot,p): \mathbb{R}^d \to \mathbb{R}: x \mapsto d_\mathbb{E} (x, p)$. Letting $\M \subset \mathbb{R}^d$ be a smooth manifold, we call the distance function restricted to $\M$, that is $d_\mathbb{E}  (\cdot ,p) |_\M  : \M \to \mathbb{R}: x \mapsto d_\mathbb{E} (x, p)$, the restricted distance function.   
 \end{definition} 
 
 \subsection{Focal and Symmetry Set}
 
-To define the focal set in $\mathbb{R}^d$ is beyond the scope of this paper, so we will stick to the 2D case which the tool is built for. In 2D the focal set is also called the \textit{evolute} of the curve. Following the definition given by Porteous \cite{porteous2001geometric}, the evolute is defined as the locus of the centers of curvature of the curve.
+To define the focal set in $\mathbb{R}^d$ is beyond the scope of this paper, so we will stick to the 2D case for which the tool is constructed. In 2D, the focal set is also called the \textit{evolute} of the curve. Following the definition given by Porteous \cite{porteous2001geometric}, the evolute is defined as the locus of the centers of curvature of the curve.
 
 Let $\mathcal{M}$ be a smooth plane curve parameterized by arc length $s$, given by $\gamma(s)$. Let $\mathbf{t}(s) = \gamma'(s)$ be the unit tangent vector and $\mathbf{n}(s)$ be the unit normal vector obtained by rotating $\mathbf{t}(s)$ by $90^\circ$ counter-clockwise.
 
@@ -233,14 +233,14 @@ The \textbf{radius of curvature} $\rho(s)$ is the reciprocal of the curvature:
 \end{definition}
 
 \begin{definition}[Evolute]
-The \textbf{evolute} of $\mathcal{M}$ is the curve $E(s)$ defined by the centers of osculating circles to $\mathcal{M}$:
+The \textbf{evolute} of $\mathcal{M}$ is the curve $E(s)$ defined by the centers of osculating circles {of the plane curve} $\mathcal{M}$:
 \begin{equation}
     E(s) = \gamma(s) + \rho(s) \mathbf{n}(s)
 \end{equation}
 where $\mathbf{n}(s)$ is the unit normal vector to the curve at $\gamma(s)$.
 \end{definition}
 
-Geometrically, the evolute can also be characterized as the envelope of the family of normal lines to $\mathcal{M}$. Additionally, it can also be viewed as the locus of the centers of circles whose 2-jet coincide with the curve at the point of contact of the curve and the circle.
+Geometrically, the evolute can also be characterized as the envelope of the family of lines normal to $\mathcal{M}$. Additionally, it can be viewed as the locus of the centers of circles whose 2-jet coincide with the curve at the point of contact of the curve and the circle.
 
 \begin{definition}[Symmetry set, \cite{Bruce1985symmetry}] \label{def:symmetry_set}
 Let $\M \subset \mathbb{R}^d$ be a smooth manifold. The symmetry set $\symm (\M)$ of $\M$ is the closure of the set of points $p$ in $\mathbb{R}^d$, such that there is a radius $r$ so that $B(p,r)$ is tangent to $\M$ in at least two places. 
@@ -530,7 +530,7 @@ Finally, we examine the stability of the Radial Persistence Transform by computi
 
 In the top row of Figure \ref{fig:vineyard_crossing}, the yellow center point traverses a region free of focal singularities, and the corresponding vine (blue curve in the 3D plot) remains continuous. As the center crosses the green focal curve (middle and bottom rows), we observe a distinct ``break'' or discontinuity in the vineyard. 
 % This visual discontinuity confirms the change in the number or pairing of critical points.
-Figure \ref{fig:vin_change} further explores this by varying the radius of the loop $\gamma$, showing how the vines evolves as the measurement loop encompasses different topological features of the ambient space.
+Figure \ref{fig:vin_change} further explores this by varying the radius of the loop $\gamma$, showing how the vines evolve as the measurement loop encompasses different topological features of the ambient space.
 
 \begin{figure}[htbp]
     \centering
@@ -553,7 +553,7 @@ Figure \ref{fig:vin_change} further explores this by varying the radius of the l
     \hfill
     \includegraphics[width=0.29\textwidth]{persistence_diagram3.png}
     
-    \caption{An example of a vineyard for a potato shaped figure along the purple loop. As the center (yellow point) crosses the focal set, there is a break in the vineyard and when it crosses back again the vineyard reappears.}
+    \caption{An example of a vineyard for a potato shaped figure along the purple loop. As the center (yellow point) crosses the focal set, there is a break in the vineyard, and when it crosses back again, the vineyard reappears.}
     \label{fig:vineyard_crossing}
 \end{figure}
 

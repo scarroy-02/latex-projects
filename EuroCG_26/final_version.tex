@@ -1,5 +1,5 @@
 % for section-numbered lemmas etc., use "numberwithinsect"
-\documentclass[a4paper,english,numberwithinsect]{eurocg26-submission}
+\documentclass[a4paper,english,numberwithinsect]{eurocg26}
 
 % the recommended bibstyle
 \bibliographystyle{plainurl}
@@ -107,10 +107,10 @@
     \kern.5pt#1\kern.5pt}}
 
 % Author metadata::begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Bouquet : A Visualization Tool for Symmetry Sets and Vineyards\footnote{This work has been supported by the ANR grant StratMesh, ANR-24-CE48-1899, by NSF award 2444309, and the welcome package from IDEX of the Université Côte d’Azur, ANR-15-IDEX-01.}}
+\title{Bouquet: A Visualization Tool for Symmetry Sets and Vineyards\footnote{This work has been supported by the ANR grant StratMesh, ANR-24-CE48-1899, by NSF award 2444309, and the welcome package from IDEX of the Université Côte d’Azur, ANR-15-IDEX-01.}}
 %optional, in case that the title is too long;
 %the running title should fit into the top page column
-\titlerunning{Bouquet : A Visualization Tool for Symmetry Sets and Vineyards}
+\titlerunning{Bouquet: A Visualization Tool for Symmetry Sets and Vineyards}
 
 \author[1]{Erin Chambers}
 \author[2]{Christopher Fillmore}
@@ -164,7 +164,9 @@
   The Persistent Homology Transform (PHT) has emerged as a powerful topological summary for shape analysis, capturing multiscale geometric information by scanning a shape along all possible directions. 
   In this paper we study a close variant, namely the Radial Persistence Transform (RPT). The RPT maps a point $x$ in the ambient space to the persistence diagram of the squared Euclidean distance function $d_\mathbb{E}^2  (\cdot , x) |_{\M}$ restricted to a manifold $\mathcal{M}$. Previous results by Bruce, Giblin, and Gibson, and by Porteous, establish that the topology of this distance function, and hence the persistence diagram, undergoes changes if $x$ traverses the symmetry set and focal set.
 
-We present an interactive web-based 2D tool, Bouquet2D, designed to explore these transitions through the lens of vineyards. By parameterizing $x$ along a user-defined loop $\gamma$, our tool tracks the continuous evolution of persistence diagrams, revealing the complex ``braiding'' patterns and monodromy in the vineyard recently characterized by Chambers et al. [SODA 26].
+We present an interactive web-based 2D tool, Bouquet2D, designed to explore these transitions through the lens of vineyards (stacked persistence diagrams). By parameterizing $x$ along a user-defined loop $\gamma$, our tool tracks the continuous evolution of persistence diagrams, revealing the complex ``braiding'' patterns and monodromy in the vineyard recently characterized in  \cite{chambers2025braidingvineyards}.
+% TODO in the abstract in Easychair replace with: in [SODA 26]. 
+% by Chambers et al. [SODA 26].
 
 The tool features a real-time spline-based interface, allowing researchers to deform $\M$ and observe how geometric bifurcations manifest as topological events in the vineyard. By exhibiting the relation between the symmetry and focal set and the topology of the vineyard, this software provides a visual framework for investigating the origin of topology in vineyards.
    % users to observe how geometric features dictate topological events.
@@ -179,7 +181,8 @@ The tool features a real-time spline-based interface, allowing researchers to de
 
 Vineyards, which are time-varying persistence diagrams arising from one-parameter families of filtrations, have found applications across topological data analysis \cite{Bergomi2020, DeeAlgar2021, Yoo2016}. By stability, points in persistence diagrams vary continuously with the parameter, tracing out curves called vines \cite{CohenSteiner2006, turner2023representing}. When the parameter space is periodic, we obtain a closed vineyard.
 
-Recent work has revealed much topological complexity in vineyards. \cite{Arya2024} exhibited closed vineyards with monodromy, while \cite{chambers2025braidingvineyards} showed that any monodromy occurs in some closed vineyard. Moreover, \cite{chambers2025braidingvineyards} showed that, given a knot, there exists a manifold and a family of distance functions restricted to the manifold such that the corresponding closed vineyard contains the given knot. { The construction of \cite{chambers2025braidingvineyards} is performed in the context of the Radial Distance Transform (RDT), i.e. given fixed a manifold $\M\subset \mathbb{R}^d$ and a point $x \in \mathbb{R}^d$ (which will be varied later along a curve $\gamma$ to generate a vineyard), one considers the persistence diagram of the (squared) Euclidean distance function restricted to $\M$, that is, $d_\mathbb{E}^2  (\cdot , x) |_{\M}$.  } 
+Recent work has revealed much topological complexity in periodic vineyards. \cite{Arya2024} exhibited closed vineyards with monodromy, while \cite{chambers2025braidingvineyards} showed that any order of monodromy occurs in some closed vineyard. 
+Moreover, \cite{chambers2025braidingvineyards} showed that, given a knot, there exists a manifold and a family of distance functions restricted to the manifold such that the corresponding closed vineyard contains the given knot. { The construction of \cite{chambers2025braidingvineyards} is performed in the context of the Radial Distance Transform (RDT), i.e. given a fixed manifold $\M\subset \mathbb{R}^d$ and a point $x \in \mathbb{R}^d$ (which will be varied later along a curve $\gamma$ to generate a vineyard), one considers the persistence diagram of the (squared) Euclidean distance function restricted to $\M$, that is, $d_\mathbb{E}^2  (\cdot , x) |_{\M}$.  } 
 %MW the following is nice, but not strictly necessary to understand the rest of the paper
 %Since knot recognition is computationally hard \cite{Ichihara2023,hass1997algorithms, Lackenby2021, Koenig2021}, this implies that comparing closed vineyards is inherently difficult.
 
@@ -191,21 +194,6 @@ Recent work has revealed much topological complexity in vineyards. \cite{Arya202
 \textbf{How is the topology of the focal and symmetry sets (the bifurcation set) related to the topology of the vineyard? }
 } 
 
-% \subparagraph{Monodromy and topology in vineyards} Recently, interest in vineyards has been renewed: In \cite{Arya2024} an example of a closed vineyard with monodromy was exhibited, and proved that the persistent
-% homology transform of a star-shaped objects in the plane cannot exhibit monodromy. In the future work they discuss a number of potential generalizations of this result, especially to higher dimensions, but are unable to characterize obstructions to monodromy using their approach for 2 dimensions. 
-% It should be noted that monodromy in multipersistence was already shown in \cite{Cerri2013}, see also \cite{AATRNsara}. 
-
-% Following this work, in~\cite{chambers2025braidingvineyards} circular vineyards were shown to be as topologically complicated as one may expect. In particular, we saw that given a knot (or even a link), a manifold ($\M$) and a periodic family of distance functions restricted to the manifold can be constructed such that closed vineyard contains the given knot (or link). 
-% The distance function in the construction is $d_\mathbb{E}  (\cdot , \gamma(t)) |_\M$, that is the Euclidean distance to the point $\gamma(t)$ on a closed curve $\gamma$. 
-% Because recognizing knots is related to many NP-hard problems \cite{Ichihara2023,hass1997algorithms, Lackenby2021, Koenig2021}, this means that closed vineyards are also computationally complex, in the sense that comparing them is hard. 
-
-% \subparagraph{The persistent homology transform} 
-% %MW: corrected some typo below, but nothing major. I like the text in general. 
-% Directional transforms are of growing interest in topological data analysis.  For example, it is now well known that the directional transform, where each direction $\omega$ gives rise to a sublevel set filtration and hence a persistence diagram, is injective~\cite{Curry2022,Ghrist2018}.
-
-% \subparagraph{TO INCLUDE:} Why useful - study changes in topology from the experimental viewpoint
-
-%These results motivate the need for tools that allow researchers to experimentally explore vineyard topology and its relation to the symmetry and focal sets, i.e. the bifurcation set. 
 In this paper, we present a 2D visualization tool hosted at \href{https://www.rohitroy.me/symmetry-set-visualizer/bouquet2d.html}{\texttt{Bouquet2D}}\footnote{https://www.rohitroy.me/symmetry-set-visualizer/bouquet2d.html} to study this relationship for explicit examples. %for focal and symmetry sets, and study the topology of vineyards as the family of filtrations are altered. 
 More precisely, our tool enables interactive study of how topological features—such as vine crossings, monodromy, and braiding (refer \cite{chambers2025braidingvineyards} for the definitions)—emerge and evolve, providing geometric intuition that guides theoretical analysis.
 
@@ -223,29 +211,28 @@ Let $\mathcal{M}$ be a smooth plane curve parameterized by arc length $s$, given
 
 \begin{definition}[Curvature and Radius of Curvature]
 The \textbf{curvature} $\kappa(s)$ is the rate of change of the tangent vector in the direction of the normal:
-\begin{equation}
+\begin{equation*}
     \mathbf{t}'(s) = \kappa(s) \mathbf{n}(s)
-\end{equation}
+\end{equation*}
 The \textbf{radius of curvature} $\rho(s)$ is the reciprocal of the curvature:
-\begin{equation}
+\begin{equation*}
     \rho(s) = \frac{1}{\kappa(s)}, \quad \text{for } \kappa(s) \neq 0
-\end{equation}
+\end{equation*}
 \end{definition}
 
 \begin{definition}[Evolute]
-The \textbf{evolute} of $\mathcal{M}$ is the curve $E(s)$ defined by the centers of osculating circles {of the plane curve} $\mathcal{M}$:
-\begin{equation}
+The \textbf{evolute} (or focal set) of $\mathcal{M}$ is the curve $E(s)$ defined by the centers of osculating circles {of the plane curve} $\mathcal{M}$:
+\begin{equation*}
     E(s) = \gamma(s) + \rho(s) \mathbf{n}(s)
-\end{equation}
+\end{equation*}
 where $\mathbf{n}(s)$ is the unit normal vector to the curve at $\gamma(s)$.
 \end{definition}
 
-Geometrically, the evolute can also be characterized as the envelope of the family of lines normal to $\mathcal{M}$. Additionally, it can be viewed as the locus of the centers of circles whose 2-jet coincide with the curve at the point of contact of the curve and the circle.
-
 \begin{definition}[Symmetry set, \cite{Bruce1985symmetry}] \label{def:symmetry_set}
 Let $\M \subset \mathbb{R}^d$ be a smooth manifold. The symmetry set $\symm (\M)$ of $\M$ is the closure of the set of points $p$ in $\mathbb{R}^d$, such that there is a radius $r$ so that $B(p,r)$ is tangent to $\M$ in at least two places. 
-% Equivalently, the symmetry set $\symm (\M)$ of $\M$ is the closure of the set of points $p$ in $\mathbb{R}^d$, such that the restricted distance function $d(\cdot ,p) |_\M$  has at least two Morse critical points at the same value. 
 \end{definition}
+
+The local structure of the symmetry and focal set is determined by the classification of singularities \cite{Bruce1985symmetry}.
 
 \begin{figure}[htbp]
     \centering
@@ -254,100 +241,12 @@ Let $\M \subset \mathbb{R}^d$ be a smooth manifold. The symmetry set $\symm (\M)
     \label{fig:focal_set_visualizer}
 \end{figure}
 
-% The focal set in 2D is most often referred to as the evolute. Essentially, the focal set is the locus of the natural map from the normal bundle to the Euclidean space, which maps a point $(x,v) \in \N\M$ to $x+v \in\mathbb{R}^d$, is not an immersion/local embedding. {\color{darkgreen} The visualization tool currently works only with 2D curves, with the intent to extend it further to higher dimensions.}
-
-% In this section we recall the definition of the focal set. Our discussion is mostly adjusted from Do Carmo's Riemannian Geometry \cite[Chapter 10, Section 4]{DoCarmoRiemannian} with some influence from \cite{porteous1971normal}. The key change compared to \cite{DoCarmoRiemannian} is that in Euclidean space the geodesics are just straight lines and Jacobi fields linear vector fields. 
-
-% % {\color{darkgreen} [Notation to be decided on]}
-% We first recall some essential definitions and properties of the second fundamental form and shape operator of a submanifold. We refer the reader to  \cite[Section 2.6]{DoCarmoRiemannian} for a pedagogical overview. 
-
-% The second fundamental form $\barroman{II}_x(u,v)$ has the geometric interpretation of the normal part of the covariant derivative along a submanifold $\M$ at $x \in \M$. Here, $u,v$ are vector fields on $\M$. In particular $\barroman{II}(u,v)= \bar{\nabla} _{u}  v  - \nabla_u v$, where $\bar{\nabla}$ is the connection in the ambient space, in this case the Euclidean space, and $\nabla$ the connection with respect to the metric on the manifold $\M$, induced by the ambient Euclidean metric. 
-% Let $\nu \in N\M$ be a normal vector. We define the shape operator for the direction $\nu$ as the linear self-adjoint operator $S_\nu : T_x\M \to T_x \M$ defined by 
-% \[ 
-%  S_\nu (u) \cdot v  = \barroman{II}(u,v) \cdot \nu .
-% \] 
-
-% % The shape operator also satisfies the following: 
-% % \begin{proposition}[{Proposition 2.3, Section 6.2 of \cite{DoCarmoRiemannian}}]
-% %     Let $x \in \M$,  
-% % \end{proposition}
 
 
-% % The second fundamental form $\barroman{II}_p: T_p\M \times T_p \M \to N_p\M$ is a symmetric bi-linear form, see for example Section 6.2 of \cite{DoCarmoRiemannian} for a proof. This means that we only need to consider vectors in the tangent space and not vector fields, when we consider $\barroman{II}_p(u,v)$.
-
-% We have the following definition of focal points, adjusted from \cite[Definition 4.2, Chapter 10]{DoCarmoRiemannian}:
-% \begin{definition}[Focal point] \label{def:focal}
-% Let $\M \subset \mathbb{R}^d$ be a submanifold.  The point $p \in \mathbb{R}^d$ is called a focal point of $\M$ if there exists a straight line segment $\gamma: [0, \ell] \to \mathbb{R}^d$, parametrized according to arclength by $t$ and a non-zero vector field $J$ along $\gamma$ that is linear in $t$ satisfying the following conditions:
-% \begin{enumerate}
-%     \item $\gamma(0) \in \M$,
-%     \item $\dot{\gamma} (0) \in N_{\gamma(0)}\M$, where $N_x \M$ denotes the normal space of $\M$ at $x$, 
-%     \item $J(0) \in T_ {\gamma(0)} \M$,
-%     \item $\dot{J} (0) + S_{\dot{\gamma}(0) } (J(0)) \in N_{\gamma(0) } \M  $
-%     \item $J(\ell)=0$. 
-% \end{enumerate}
-% \end{definition}
-
-% \begin{remark}
-% In the Riemannian setting $\gamma$ is a geodesic and $J$ a Jacobi field. 
-% \end{remark}
-
-% The conditions in Definition \ref{def:focal} have simple geometric interpretations: The first two conditions, of course, mean that $\gamma$ is a segment of a normal line to $\M$. The vector field $J$ (the Jacobi field) indicates the change with respect to the parameter in a one-parameter family of straight line segments (or more generally geodesics). That is $J= \frac{d}{ds} \gamma_s (t)|_{s=0} $, where $\gamma_s$ is a smooth family of straight line segments (geodesics), with $s \in (-\epsilon , \epsilon)$ for some $\epsilon>0$. Now, the third and fifth conditions imply that there is a family of straight lines $\gamma_s(t)$ that connect (the fixed, up to leading order) point $p$ with a point that lies on $\M$ (up to leading order). The fourth condition means that these straight line segments remain normal (up to leading order). {\color{darkgreen} More precisely, we have the following, adjusted from \cite[Lemma 4.1, Chapter 10]{DoCarmoRiemannian}, [do we need this lemma?]}
-% % \begin{lemma}
-% % If $p$ is a focal point then there exists a family of straight line segments, $\mathcal{L} (-\epsilon , \epsilon) \times [0, \ell] \to \mathbb{R}^d: (s,t) \mapsto \mathcal{L}(s,t)$, such that $t\mapsto \mathcal{L}(s,t)$, is a straight line segment parameterized according to arclength, that is, $\mathcal{L} (s,t) = \alpha (s) + u(s) t$, with $ \alpha (s) \in \mathbb{R}^d$, $u(s) \in \mathbb{S}^{d-1}$, and $p =\mathcal{L} (0,\ell)$, that satisfies the following: 
-% % \begin{itemize} 
-% % \item The starting point of the geodesics lies in $\M$, i.e. $\alpha (s) \in \M$. 
-% % \item The line segment is normal to $\M$, i.e. $u(s) \in N_{\alpha(s)} \M$.
-% % \item The end point of the segment remains constant up to leading order, i.e. $\frac{d}{ds} \mathcal{L} (s,\ell)|_{s=0} =0$. 
-% % \end{itemize} 
-% % \end{lemma} 
-% % We stress that, because the distance between $\mathcal{L} (s,\ell)$ and $\mathcal{L} (s,0) = \alpha (s)$ is $\ell$ i.e. $|\mathcal{L} (s,\ell) - \alpha (s)|=\ell$, and \[ \frac{d}{ds} |\mathcal{L} (s,\ell)- \mathcal{L} (0,\ell) | \Big |_{s=0} = \frac{d}{ds} |\mathcal{L} (s,\ell)- p | \Big |_{s=0}  = 0, \]   
-% % the triangle inequality yields
-% %  \[ \frac{d}{ds} |\alpha (s)-p| =0,\]
-% %  which in geometrical terms means that $\alpha(s)$ up to leading order in $s$
-% % lies on a circle of radius $\ell$ centred at $p$. 
-
-
-
-% % We consider the natural map from the normal bundle to $\mathbb{R}^d$,
-% % \begin{align}
-% % \mathfrak{N}: N\M \to \mathbb{R}^d : (x, \nu) \mapsto x+\nu.
-% % \nonumber
-% % \end{align}
-% % This gives a different characterization of focal points (which is in fact the starting point for e.g. \cite{porteous1971normal}):
-% % \begin{proposition}[Proposition 10.4.4 of \cite{DoCarmoRiemannian}] 
-% % The point $p \in \mathbb{R}^d$ is a focal point of $\M$ if it is a critical value of $\mathfrak{N}$. 
-% % \end{proposition}
-
-
-% \begin{definition}
-% The set of all focal points of $\M$ will be called the focal set of $\M$. 
-% \end{definition} 
-
-% [Rewording needed]
-
-% \subsection{Symmetry Set}
-
-
-% \begin{definition}[Generalized symmetry set]
-% Let $\M \subset \mathbb{R}^d$ be a smooth manifold. The generalized symmetry set $\Gsymm (\M)$ of $\M$ is the union of $\symm (\M)$ and  $\foc(\M)$. 
-% \end{definition}
 
 \subsection{Vineyards}
-% A central component of our visualization is the concept of a \textit{vineyard}, which captures the continuous evolution of persistence diagrams as the filtration function changes. Introduced by Cohen-Steiner et al. \cite{CohenSteiner2006}, vineyards provide a stable method for tracking topological features across a parameterized family of functions.
 
-% Let $K$ be a simplicial complex and let $f_t: K \to \mathbb{R}$ be a continuous family of tame functions parameterized by $t \in T$, where $T$ is a topological space (in the context of the PHT for planar shapes, $T$ is the circle of directions, $S^1$).
-
-% \begin{definition}[Vineyard]
-% The \textbf{vineyard} of the family $\{f_t\}_{t \in T}$, denoted as $\mathcal{V}(f)$, is the subset of $T \times \overline{\mathbb{R}}^2$ given by:
-% \begin{equation}
-%     \mathcal{V}(f) = \bigcup_{t \in T} \{t\} \times \text{Dgm}(f_t)
-% \end{equation}
-% where $\text{Dgm}(f_t)$ represents the persistence diagram of $f_t$ consisting of birth-death pairs $(b, d)$.
-% \end{definition}
-
-% The set $\mathcal{V}(f)$ decomposes into a collection of curves, called \textit{vines}, which track individual points in the persistence diagram as the parameter $t$ varies. In our tool, as the direction vector $v$ rotates around the shape ($T = S^1$), these vines trace the changes in the birth and death times of homological features.
-
-A central component of our visualization is the concept of a \textit{vineyard}, which captures the continuous evolution of persistence diagrams as the filtration function changes. Introduced by Cohen-Steiner et al. \cite{CohenSteiner2006}, vineyards provide a stable method for tracking topological features across a parameterized family of functions.
+A central component of our visualization is the concept of a \textit{vineyard}, which captures the continuous evolution of persistence diagrams as the filtration function changes. Introduced in  \cite{CohenSteiner2006}, vineyards provide a stable method for tracking topological features across a parameterized family of functions.
 Let $\mathcal{M} \subset \mathbb{R}^2$ be a smooth manifold (curve) and let $\gamma:S^1\to\mathbb{R}^2$ be a closed curve. For each $t \in S^1$, define the radial distance function $f_t: \mathcal{M} \to \mathbb{R}$ by
 \[
 f_t(x) = d_{\mathbb{E}}^2(x,\gamma(t))|_\M.
@@ -363,40 +262,30 @@ where $\mathrm{Dgm}(f_t)$ is the persistence diagram of the sublevel set filtrat
 
 The set $\mathcal{V}(\mathcal{M}, \gamma)$ decomposes into curves called \textit{vines}, which track individual persistence points as $t$ varies. In our tool, as the center point $\gamma(t)$ traverses the closed curve, vines trace the evolution of birth and death times of homological features.
 
-% \subsection{Monodromy and Braiding}
+\subsection{Monodromy}
+Following a vine in a vineyard for an entire period, that is, traversing $S^1$ once, does not necessarily lead to the point in the persistence diagram you set out with. If this is the case, one says that there is monodromy. If $k>1$ is the smallest number such that following a (or each) vine while traversing the loop $k$ times you end up at the starting point in the persistence diagram, you say the monodromy is of order $k$.   
 
-% {\color{darkgreen} [MW: I am not entirely sure that this is necessary to understand the rest of the paper/ what the tool does. given the space constriants I think I am cutting it, I think more examples would be more interesting] }
 
-% {\color{darkgreen} Need def 3.2 from Braiding Vineyards}
 
-% Since the parameter space is $S^1$, tracking points in the persistence diagram around a full rotation may result in a non-trivial permutation of features. This phenomenon is called \textit{monodromy}.
-
-% \begin{definition}[Monodromy]
-% Let $\text{Dgm}(f_{t_0})$ be the persistence diagram at a base parameter $t_0$. The \textbf{monodromy} is the permutation $\sigma \in S_n$ induced by the continuous movement of points along the vines over a closed loop $\gamma$ in the parameter space.
-% \end{definition}
-
-% {\color{darkgreen} remark about connecting monodromy with the symmetry set}
-
-% % In the context of the PHT, this is often visualized as the "braiding" of vines. If we plot the parameter $t$ (angle) against the persistence values, the resulting vines may intertwine. A non-trivial monodromy implies that distinct geometric features may swap their topological roles (e.g., a feature born at a local minimum $A$ and dying at saddle $S$ might, after a full rotation, be paired with a different critical point), reflecting the global geometry of the underlying shape.
 
 \section{Algorithm}
 
 \subsection{Calculation of the Symmetry Set}
 
-The Symmetry Set (SS) is the locus of centers of circles bitangent to a curve at two or more points. We are following the algorithm described by Bruce, Giblin and Gibson \cite{Bruce1985symmetry} for the computation of the symmetry set. Consider sampled points $\mathcal{P}=\{p_1,p_2,\dots, p_k\}$ from $\M$ and corresponding tangents $\{t_1,t_2,\dots,t_k\}$ and normals $\{n_1, n_2,\dots, n_k\}$ at these points. Algorithm \ref{alg:symmetry_set} describes our implementation.
+The Symmetry Set (SS) is the locus of centers of circles bitangent to a curve at two or more points. We are following the algorithm described in \cite{Bruce1985symmetry} for the computation of the symmetry set. Consider sampled points $\mathcal{P}=\{p_1,p_2,\dots, p_k\}$ from $\M$ and corresponding tangents $\{t_1,t_2,\dots,t_k\}$ and normals $\{n_1, n_2,\dots, n_k\}$ at these points. Algorithm \ref{alg:symmetry_set} describes our implementation.
 
 \subparagraph{Bitangency Condition} 
 We identify potential bitangencies by detecting zero-crossings of the functions:
-\begin{equation}
+\begin{equation*}
     f_{\pm}(i, j) = (p_i - p_j) \cdot (t_i \pm t_j)
-\end{equation}
+\end{equation*}
 A sign change in $f_{\pm}$ between adjacent samples $p_j, p_{j+1}$ indicates a local bitangent condition.
 
 \subparagraph{Intersection Calculation}
-When a zero-crossing is detected, the center $C$ is found by intersecting the normal lines $L_i = p_i + \lambda n_i$ and $L_j = p_j + \mu n_j$. We solve for $\lambda$ by projecting the chord onto the combined normal vector:
-\begin{equation}
+When a zero-crossing is detected, the center $C$ is found by intersecting the normal lines $L_i = p_i + \lambda n_i$ and $L_j = p_j + \mu n_j$. We solve for $\lambda$ by projecting the  $(p_i-p_j)$ onto the combined normal vector:
+\begin{equation*}
     \lambda = \frac{-(p_i - p_j) \cdot (n_i \pm n_j)}{\|n_i \pm n_j\|^2}
-\end{equation}
+\end{equation*}
 The candidate center is $C = p_i + \lambda n_i$. We retain $C$ only if it satisfies the equidistance constraint $|\|C-p_i\| - \|C-p_j\|| < \epsilon_{rad}$, which ensures numerical stability against discretization artifacts.
 
 \begin{algorithm}[t]
@@ -408,15 +297,15 @@ The candidate center is $C = p_i + \lambda n_i$. We retain $C$ only if it satisf
 
 $\mathcal{S} \gets \emptyset$\;
 \For{$i \gets 1$ \textbf{to} $k$}{
-    $v_{prev}^{+} \gets \text{NaN}, \quad v_{prev}^{-} \gets \text{NaN}$\;
+    $v_{prev}^{\pm} \gets \text{NaN}$\;
     \For{$j \gets i+1$ \textbf{to} $k$}{
         $\Delta p \gets p_i - p_j$\;
         \lIf{$\|\Delta p\|^2 < \epsilon_{chord}$}{\textbf{continue}}
 
         \tcp{Check tangent condition: $\Delta p \cdot (t_i \pm t_j) = 0$}
         \If{$|{t_i \cdot t_j}| < 1 - \epsilon$}{ 
-            $v_{curr}^{+} \gets \Delta p \cdot (t_i \pm t_j)$\;
-            \If{$v_{prev}^{+} \cdot v_{curr}^{+} < 0$}{
+            $v_{curr}^{\pm} \gets \Delta p \cdot (t_i \pm t_j)$\;
+            \If{$v_{prev}^{\pm} \cdot v_{curr}^{\pm} < 0$}{
                 \tcp{Sign change detected: Normals approx intersect}
                 $C \gets \text{ComputeIntersection}(p_i, n_i, p_j, n_j)$\;
                 $r_i \gets \|C - p_i\|, \quad r_j \gets \|C - p_j\|$\;
@@ -424,7 +313,7 @@ $\mathcal{S} \gets \emptyset$\;
                     $\mathcal{S} \gets \mathcal{S} \cup \{C\}$\;
                 }
             }
-            $v_{prev}^{+} \gets v_{curr}^{+}$\;
+            $v_{prev}^{\pm} \gets v_{curr}^{\pm}$\;
         }
     }
 }
@@ -433,8 +322,8 @@ $\mathcal{S} \gets \emptyset$\;
 
 \subsection{Vineyard Computation}
 
-The vineyard $\mathcal{V}$ is constructed by stack-wise concatenation of persistence diagrams generated from a parameterized family of distance functions. Methods have been proposed by e.g. \cite{tamalrevisit} to compute vineyards effectively, but an elementary approach suffices here. %we go for a more primitive approach. 
-In our tool, we parameterize the filtration by moving the source point $\gamma(t)$ along a circular path of user-defined radius and center.
+The vineyard $\mathcal{V}$ is constructed by stack-wise concatenation of persistence diagrams generated from a parameterized family of distance functions. Methods have been proposed by e.g. \cite{tamalrevisit} to compute vineyards effectively, but an elementary approach suffices here.\footnote{Because working with curves in 2D means the efficient union find algorithm suffices to compute the persistence diagram, which is sufficiently fast, not to require more sophisticated tools to further speed-up.} %we go for a more primitive approach. 
+In our tool, we parameterize the filtration by moving the source point $\gamma(t)$ along a circular path of user-defined radius and center, or an arbitrary user-drawn loop via splines \cite{deBoor1978}.
 
 \subparagraph{Persistence}
 For a fixed $t$, we compute persistence using a Union-Find based algorithm on the lower star filtration of the squared distance function $f_\theta(p) = d_{\mathbb{E}}^2(p,\gamma(t))|_\M$. As we iterate through points $p \in \mathcal{P}$ in increasing order of distance, components are merged. The ``Elder Rule'' is applied to pair the birth time (distance) of a merging component with the current distance as its death time.
@@ -488,7 +377,7 @@ The tool captures the evolution of these birth-death pairs across $m$ discrete s
 To demonstrate the utility of our tool, we present a series of visualizations highlighting the interplay between the geometry of the input curve $\mathcal{M}$ and its vineyard topology.
 
 \subsection{Symmetry and Focal Sets of Deforming Ellipses}
-We begin by validating our tool against known geometric behaviors. Figure \ref{fig:dented_ellipse} illustrates the evolution of the focal and symmetry sets for a family of ellipse-like shapes, inspired by the work of Giblin \cite{WrongVersionGiblin}. As the ellipse is deformed from a convex shape into a non-convex ``bean'' shape, we observe the characteristic bifurcations in the symmetry set (red) and the formation of cusps in the focal set (green). The tool accurately captures the emergence of ``swallowtail'' singularities in the focal set, which correspond to the creation of inflection points on the curve.
+We begin by validating our tool against known geometric behaviors. Figure \ref{fig:dented_ellipse} illustrates the evolution of the focal and symmetry sets for a family of ellipse-like shapes, inspired by the work of \cite{WrongVersionGiblin}. As the ellipse is deformed from a convex shape into a non-convex ``bean'' shape, we observe the characteristic bifurcations in the symmetry set (red) and the formation of cusps in the focal set (green). The tool accurately captures the emergence of ``swallowtail'' singularities in the focal set, which correspond to the creation of inflection points on the curve, as shown in \cite{giblin2003symmetry}.
 
 \begin{figure}[htbp]
     \centering
@@ -503,12 +392,12 @@ We begin by validating our tool against known geometric behaviors. Figure \ref{f
     \hfill
     \fcolorbox{gray!60}{white}{%
     \includegraphics[width=0.47\linewidth]{figures/ellipse_deform4.png}}
-    \caption{Focal (green) and symmetry (red) sets of ellipses undergoing deformation (inspired from Giblin \cite{WrongVersionGiblin}). The sequence captures the transition from a pure ellipse to a non-convex shape, showing the creation of cusps and self-intersections in the singularity sets.}
+    \caption{Focal (green) and symmetry (red) sets of ellipses undergoing deformation (inspired from \cite{WrongVersionGiblin}). The sequence captures the transition from a pure ellipse to a non-convex shape, showing the creation of cusps and self-intersections in the singularity sets.}
     \label{fig:dented_ellipse}
 \end{figure}
 
-\subsection{Complexity in Random Splines}
-The tool's robustness is further tested on complex, randomized spline curves (Figure \ref{fig:fun_pics}). Even for highly non-convex shapes with multiple lobes, the discrete algorithm successfully resolves intricate symmetry set branches and the global structure of the focal set.
+\subsection{Complexity in Arbitrary Splines}
+The tool's robustness is further tested on complex, hand-picked spline curves (Figure \ref{fig:fun_pics}). Even for highly non-convex shapes with multiple lobes, the discrete algorithm successfully resolves intricate symmetry set branches and the global structure of the focal set. Furthermore, the tool is capable of handling inputs with multiple connected components. As seen in the bottom right of Figure \ref{fig:fun_pics}, the visualization captures not only the local symmetry within each individual curve but also the global bitangential interactions \textit{between} the two disjoint shapes.
 % This visualization underscores the difficulty of inferring global symmetry from local features alone, as distant parts of the curve interact to form dense bitangency networks.
 
 \begin{figure}
@@ -520,8 +409,11 @@ The tool's robustness is further tested on complex, randomized spline curves (Fi
         \includegraphics[width=0.47\linewidth]{figures/fun2.png}}
     \vspace{0.8em} % vertical separation between rows
     \fcolorbox{gray!60}{white}{%
-        \includegraphics[width=0.49\linewidth]{figures/fun3.png}}
-    \caption{Complex symmetry and focal sets arising from arbitrary spline curves.}
+        \includegraphics[width=0.47\linewidth]{figures/fun3.png}}
+    \hfill
+    \fcolorbox{gray!60}{white}{%
+        \includegraphics[width=0.47\linewidth]{figures/2_components.png}}
+    \caption{Complex symmetry and focal sets arising from arbitrary spline curves. The figure on the bottom right captures the symmetry and focal sets arising from 2 connected components.}
     \label{fig:fun_pics}
 \end{figure}
 
@@ -574,10 +466,32 @@ Figure \ref{fig:vin_change} further explores this by varying the radius of the l
     \label{fig:vin_change}
 \end{figure}
 
-\section{Outlook}
+Figure \ref{fig:2_comp} shows a particularly compelling case, where the tool computes the vineyard for two disjoint connected components using extended persistence. This is particularly useful to track global spatial relationships along the observation loop.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.47\linewidth]{figures/2_comp_vin.png}
+    \includegraphics[width=0.47\linewidth]{figures/pd_2_comp.png}
+    \includegraphics[width=0.6\linewidth]{figures/vin_2_comp.png}
+    \caption{Demonstration of a vineyard for 2 disjoint connected components, with extended persistence.}
+    \label{fig:2_comp}
+\end{figure}
+
+Figure \ref{fig:spline_obs} is a demonstration of a vineyard where the measurement center moves along a arbitrary hand-drawn loop via splines; the resulting vineyard captures the topological response to a non-standard path, illustrating how custom trajectories can be used to probe specific regions of the ambient space.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.47\linewidth]{figures/canvas_spline.png}
+    \includegraphics[width=0.47\linewidth]{figures/persistence_diagram_spline.png}
+    \includegraphics[width=0.6\linewidth]{figures/vin_spline.png}
+    \caption{Vineyard for a arbitrary hand-drawn observation loop.}
+    \label{fig:spline_obs}
+\end{figure}
+
+\section{Outlook: Feedback please!}
 
 We invite everyone %members of the community 
-to test the tool and provide feedback and comments on how it can be improved. Currently it supports 2D only, with the 3D version as a work in progress.
+to test the tool and provide feedback and comments on how it can be improved. Currently it supports 2D only. Future works will include extensions to higher dimensions.
 
 % \subsection{Problem Statement and Solution}
 

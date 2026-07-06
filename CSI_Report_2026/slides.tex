@@ -1,0 +1,535 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CSI Progress Report 2026 -- Beamer presentation
+% Built on the LaTeXTemplates.com beamer template (CC BY-NC-SA 4.0)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[
+	11pt,
+	aspectratio=169, % 16:9; comment out for the template's default 4:3
+]{beamer}
+
+\graphicspath{{figures/}{Images/}{./}} % look for images in figures/ (your report's folder)
+
+\usepackage{booktabs}
+
+%----------------------------------------------------------------------------------------
+%	THEME
+%----------------------------------------------------------------------------------------
+
+\usetheme{CambridgeUS}
+\usecolortheme{dolphin}
+
+% set colors
+\definecolor{myNewColorA}{RGB}{0, 0, 102}
+\definecolor{myNewColorB}{RGB}{0, 75, 153}
+\definecolor{myNewColorC}{RGB}{0, 153, 204}
+\setbeamercolor*{palette primary}{bg=myNewColorC}
+\setbeamercolor*{palette secondary}{bg=myNewColorB, fg = white}
+\setbeamercolor*{palette tertiary}{bg=myNewColorA, fg = white}
+\setbeamercolor*{titlelike}{fg=myNewColorA}
+\setbeamercolor*{title}{bg=myNewColorA, fg = white}
+\setbeamercolor*{item}{fg=myNewColorA}
+\setbeamercolor*{caption name}{fg=myNewColorA}
+\setbeamercolor{block title}{bg=blue!30,fg=black}
+\usefonttheme{professionalfonts}
+%\usepackage{natbib} % NOTE: natbib is incompatible with biblatex (loaded below) and unused here
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{tikz-cd}
+\usepackage{amssymb}
+
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\rank}{rank}
+
+% --- macros for this talk ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Sone}{\mathbb{S}^1}
+\newcommand{\M}{\mathcal{M}}
+\DeclareMathOperator{\gsym}{gsym}
+\DeclareMathOperator{\sym}{sym}
+\DeclareMathOperator{\foc}{foc}
+\newcommand{\dist}{d_E}
+\DeclareMathOperator{\Dgm}{Dgm}
+
+\definecolor{bluish}{RGB}{20, 22, 128}
+\definecolor{prussian}{RGB}{0, 49, 83}
+\definecolor{chocolate}{RGB}{101, 67, 33}
+\definecolor{browny}{RGB}{150, 75, 0}
+\definecolor{peach}{RGB}{255, 203, 164}
+\definecolor{ocre}{RGB}{204, 119, 34}
+
+%----------------------------------------------------------------------------------------
+%	FONT THEME & FONTS
+%----------------------------------------------------------------------------------------
+
+\usefonttheme{default}
+\usepackage[sfdefault]{FiraSans}
+\usepackage[T1]{fontenc}
+
+%----------------------------------------------------------------------------------------
+%	INNER THEME
+%----------------------------------------------------------------------------------------
+
+\useinnertheme{circles}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY (loaded as in the template; References frame left commented below)
+%----------------------------------------------------------------------------------------
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{references.bib}
+
+% Speaker notes: uncomment to show notes on a second screen while presenting.
+% \setbeameroption{show notes on second screen=right}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title[CSI Meeting 2026]{CSI Meeting 2026}
+\subtitle{Vineyards, Monodromy, Symmetry Sets --- and a tool to see them \\ (also Triangulations)}
+\author[Rohit Roy]{Rohit Roy}
+\institute[Inria, UCA]{Inria Centre at Universit\'e C\^ote d'Azur, Sophia Antipolis\\[2pt]
+\footnotesize Advisors: Mathijs Wintraecken, Pierre Alliez}
+\date[]{}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Where we are going}
+	\tableofcontents
+\end{frame}
+
+%========================================================================
+\section{Context}
+%========================================================================
+
+\begin{frame}{The radial persistence transform in one picture}
+    \begin{columns}[T]
+        \begin{column}{0.55\textwidth}
+            Fix a shape $\M\subset\R^2$ and a base point $x$.
+            \begin{itemize}
+                \item Record the persistence diagram of the distance
+                      $\dist^2(\cdot,x)|_\M$.
+                \item Sweep $x$ around a closed \textbf{observation loop}
+                      $\gamma\colon\Sone\to\R^2$.
+                \item Stacking the diagrams gives a \textbf{closed vineyard}
+                      $\mathcal V(\M,\gamma)$; following one point gives a
+                      \textbf{vine}.
+            \end{itemize}
+            \vspace{0.4em}
+            A shape descriptor: a variant of the persistent homology transform
+            (Arya et al.; Onus--Otter--Turkes).
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{potato_vin.png}\\
+            {\scriptsize Symmetry set (blue), focal set (purple), vineyard along the loop.}
+        \end{column}
+    \end{columns}
+    \note{Plain-language setup: distance-to-a-moving-point, read topologically.
+    The loop must be closed so monodromy is defined. ~1.5 min.}
+\end{frame}
+
+\begin{frame}{Persistence, vineyards, and the phenomenon: monodromy}
+    \begin{itemize}
+        \item \textbf{Persistence diagram:} birth--death pairs $(b,d)$ of features
+              of the sublevel sets of $f$.
+        \item \textbf{Vineyard:} stability $\Rightarrow$ points move continuously
+              as $\gamma(t)$ varies $\Rightarrow$ vines.
+        \item \textbf{Monodromy of order $k$:} after $k$ traversals of the loop
+              every vine returns to itself --- the vines \textbf{braid}, and can
+              even knot.
+    \end{itemize}
+    \vspace{0.3em}
+    \begin{block}{Why care?}
+        Monodromy obstructs feature tracking and complicates downstream TDA
+        analysis. Until recently, almost nothing was known about \emph{which
+        geometry forces it}.
+    \end{block}
+    \note{Define monodromy carefully -- the object of the theory. Mention extended
+    persistence in one line (removes points at infinity). ~1.5 min.}
+\end{frame}
+
+\begin{frame}{The driving question}
+    \begin{center}
+        {\Large Which geometric features of a shape \\[4pt]
+        \textbf{force} monodromy in its vineyard?}
+    \end{center}
+    \vspace{1em}
+    \begin{itemize}
+        \item Answer lives in the \textbf{singularity theory of the distance
+              function}.
+        \item Two classical objects: the \textbf{symmetry set} and the
+              \textbf{focal set}.
+        \item My work builds an explicit bridge: geometry of these sets
+              $\;\longleftrightarrow\;$ topology of the vineyard.
+    \end{itemize}
+    \note{The thesis question. Keep crisp; the ``how'' is next. ~1 min.}
+\end{frame}
+
+%========================================================================
+\section{The theory, briefly (P2, P3)}
+%========================================================================
+
+\begin{frame}{Symmetry set, focal set, generalized symmetry set}
+    \begin{columns}[T]
+        \begin{column}{0.56\textwidth}
+            \begin{itemize}
+                \item \textbf{Focal set} $\foc(\M)$ (evolute): centres of
+                      curvature --- degenerate critical points of the distance.
+                \item \textbf{Symmetry set} $\sym(\M)$: centres of circles tangent
+                      to $\M$ in $\ge 2$ places.
+                \item \textbf{Generalized symmetry set}
+                      $\gsym(\M)=\sym(\M)\cup\foc(\M)$ = the \textbf{bifurcation
+                      set}: where the pairing can change.
+            \end{itemize}
+            \vspace{0.3em}
+            {\footnotesize Generic planar singularities are classified (Arnold;
+            Bruce--Giblin--Gibson).}
+        \end{column}
+        \begin{column}{0.44\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{symm_line.png}\\
+            {\scriptsize The generic planar singularities.}
+        \end{column}
+    \end{columns}
+    \note{Give the map, not the proofs. ~2 min.}
+\end{frame}
+
+\begin{frame}{Two facts that make the theory work}
+    \begin{enumerate}
+        \item \textbf{Stability outside $\gsym(\M)$.} On a component of
+              $\R^2\setminus\gsym(\M)$ the pairing is constant. So a loop avoiding
+              $\gsym(\M)$ gives $k$ \textbf{unlinked circles} --- no monodromy.
+              All monodromy comes from circling singularities.
+        \item \textbf{The interchange mechanism.} Two vines can swap only if
+              $\gamma$ crosses both a \emph{birth--birth} and a \emph{death--death}
+              stratum ($\ge 4$ contact points, exactly two pairs).
+    \end{enumerate}
+    \vspace{0.3em}
+    {\footnotesize Reordering of critical values always happens; the \textbf{elder
+    rule} can additionally change the pairing (producing ``knees''). Both together
+    are needed for monodromy.}
+    \note{The backbone. Only geometry crossing birth-birth AND death-death can
+    braid. ~2 min.}
+\end{frame}
+
+\begin{frame}{Classification $\Rightarrow$ a single culprit}
+    \begin{columns}[T]
+        \begin{column}{0.58\textwidth}
+            {\footnotesize
+            \renewcommand{\arraystretch}{1.2}
+            \begin{tabular}{@{}lc@{}}
+            \toprule
+            Type & Monodromy \\
+            \midrule
+            $A_1^2$ (bitangent circle) & no \\
+            $A_1^3$ (triple tangency) & no \\
+            $A_1^2/A_1^2$ (two concentric bitangents) & \textbf{yes} \\
+            $A_2$ (osculating; focal) & no \\
+            $A_1A_2$ & no \\
+            $A_3$ (curvature extremum) & no \\
+            $A_1^2/A_2$ & no \\
+            $A_2/A_2$ & no \\
+            \bottomrule
+            \end{tabular}}
+        \end{column}
+        \begin{column}{0.42\textwidth}
+            \begin{block}{Main theorem (P2, P3)}
+                {\footnotesize A generic small loop $\gamma$ has \textbf{no}
+                nontrivial monodromy \emph{unless} its interior contains an
+                $A_1^2/A_1^2$ singularity of the symmetry set. Otherwise the
+                vineyard is $k$ unlinked circles.}
+            \end{block}
+        \end{column}
+    \end{columns}
+    \vspace{0.3em}
+    {\footnotesize Every ``no'' either reorders without re-pairing, or only creates
+    a low-persistence near-diagonal pair. First work to combine symmetry sets +
+    persistence + singularity theory.}
+    \note{State the theorem plainly. $A_1^2/A_1^2$ = transversal crossing of a
+    birth-birth and a death-death piece. ~2 min.}
+\end{frame}
+
+\begin{frame}{Local $\ne$ global: a cautionary example}
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.82\linewidth]{A12A12_bigloop.pdf}\\
+            {\scriptsize A large loop around a monodromy-generating $A_1^2/A_1^2$
+            --- \emph{no} monodromy.}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.72\linewidth]{bishop_staff2.pdf}\\
+            {\scriptsize A large loop with an $A_2/A_2$ --- monodromy.}
+        \end{column}
+    \end{columns}
+    \vspace{0.2em}
+    {\footnotesize Singularities do \textbf{not} simply compose. Manuscript in
+    progress: a large loop with neither $A_1^2/A_1^2$ nor $A_2/A_2$ inside has no
+    monodromy and unlinked vines.}
+    \note{Message: the local theorem does not naively globalise -- the next paper.
+    ~1.5 min.}
+\end{frame}
+
+%========================================================================
+\section{Bouquet2D: the tool (P1)}
+%========================================================================
+
+\begin{frame}{Why build a tool?}
+    \begin{columns}[T]
+        \begin{column}{0.6\textwidth}
+            All of the theory above is about \textbf{seeing} how geometry becomes
+            topology.
+            \begin{itemize}
+                \item \textbf{Validation:} check the theorems on explicit examples.
+                \item \textbf{Exploration:} deform a shape and watch the vineyard
+                      react --- generate conjectures.
+                \item \textbf{Communication:} every figure in P2/P3 came out of it.
+            \end{itemize}
+            \vspace{0.4em}
+            \textbf{Bouquet2D} --- interactive, web-based, real-time.\\
+            {\footnotesize\url{https://bouquet2d.rohitroy.me}}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{potato_eg.png}\\
+            {\scriptsize A spline curve with its symmetry \& focal sets.}
+        \end{column}
+    \end{columns}
+    \note{Pivot to the tool -- the heart of the talk. ~1 min.}
+\end{frame}
+
+\begin{frame}{What Bouquet2D does}
+    \textbf{Input:} a curve $\M$ as an editable spline; an observation loop
+    (circle, or hand-drawn spline).\\[0.4em]
+    \textbf{Computes and renders, in real time:}
+    \begin{columns}[T]
+        \begin{column}{0.33\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{potato_eg.png}\\
+            {\scriptsize focal + symmetry sets}
+        \end{column}
+        \begin{column}{0.33\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{potato_vin.png}\\
+            {\scriptsize the 3D vineyard}
+        \end{column}
+        \begin{column}{0.33\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{potato_pd.png}\\
+            {\scriptsize the persistence diagram}
+        \end{column}
+    \end{columns}
+    \vspace{0.2em}
+    {\footnotesize Tip: swap these for a screenshot of the live UI if you have one.}
+    \note{One-slide I/O overview before the live demo. ~1 min.}
+\end{frame}
+
+\begin{frame}{Under the hood I --- the symmetry set}
+    Following Bruce--Giblin--Gibson, from a sampled curve:
+    \begin{enumerate}
+        \item \textbf{Detect bitangencies} via sign changes of
+              $\;f_\pm(i,j) = (p_i - p_j)\cdot(t_i \pm t_j).$
+        \item \textbf{Locate the centre} by intersecting the normal lines at
+              $p_i,p_j$.
+        \item \textbf{Filter} by the equidistance test
+              $\bigl|\,\|C-p_i\|-\|C-p_j\|\,\bigr| < \epsilon_{\mathrm{rad}}$
+              to kill discretization artifacts.
+    \end{enumerate}
+    \vspace{0.3em}
+    {\footnotesize The focal set (evolute) comes directly from the curvature:
+    $E(s)=\gamma(s)+\rho(s)\,n(s)$.}
+    \note{The symmetry set is a discrete, sampling-based computation -- sets up the
+    limitations slide. ~1.5 min.}
+\end{frame}
+
+\begin{frame}{Under the hood II --- the vineyard}
+    For each sample $t$ of the observation loop:
+    \begin{itemize}
+        \item Build the lower-star filtration of $\dist^2(\cdot,\gamma(t))|_\M$.
+        \item A single \textbf{Union--Find} pass computes persistence via the
+              \textbf{elder rule}.
+        \item Collect $(t,\text{birth},\text{death})$ triples and \textbf{track}
+              them into vines.
+    \end{itemize}
+    \vspace{0.3em}
+    \begin{block}{Why so simple?}
+        In 1D the union-find pass is already fast enough for real-time interaction
+        --- no need for the general vineyard-update machinery.
+    \end{block}
+    \note{Contrast with heavy vineyard-update algorithms -- ours is deliberately
+    elementary because the setting is 1D. ~1.5 min.}
+\end{frame}
+
+\begin{frame}{Features worth showing}
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+                \item Real-time \textbf{deformation} of the spline.
+                \item \textbf{Circular} loops (adjustable centre/radius) or
+                      \textbf{hand-drawn} loops.
+                \item \textbf{Extended persistence} (both sides of the diagonal).
+                \item \textbf{Multiple components} + global bitangencies.
+                \item Vineyard \textbf{breaks} exactly when the centre crosses the
+                      focal set.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{potato_vin.png}\\
+            {\scriptsize Vine breaking as the loop crosses the focal set.}
+        \end{column}
+    \end{columns}
+    \note{Things to click through live. Pick 3-4 to actually demonstrate. ~1 min.}
+\end{frame}
+
+\begin{frame}{Live demo --- Bouquet2D}
+    \vspace{0.3em}
+    \begin{block}{What I will show}
+        \begin{itemize}
+            \item Draw / deform a spline; watch symmetry \& focal sets update.
+            \item Drop a circular loop; grow its radius across the focal set ---
+                  the vineyard \textbf{breaks} and reappears.
+            \item Move the loop around an $A_1^2/A_1^2$ singularity --- the vines
+                  \textbf{interchange} (monodromy).
+            \item Switch to a hand-drawn loop / two components.
+        \end{itemize}
+    \end{block}
+    \begin{center}
+        {\footnotesize \url{https://bouquet2d.rohitroy.me}}
+    \end{center}
+    \note{DEMO -- budget 5-8 minutes. Have the browser open with a saved example
+    (the deformed ellipse with the $A_1^2/A_1^2$). If the live tool fails, fall
+    back to the figures in the deck.}
+\end{frame}
+
+\begin{frame}{Limitations (honest)}
+    \begin{itemize}
+        \item \textbf{Planar only:} smooth curves in $\R^2$; no higher dimensions
+              yet.
+        \item \textbf{Sampling-sensitive:} the discrete symmetry set can miss or
+              add branches near singularities if the curve is under-sampled.
+        \item \textbf{Threshold-sensitive:} results depend on user-set constants
+              ($\epsilon_{\mathrm{rad}}$, sampling density) near singularities.
+        \item \textbf{Not built for scale:} the elementary vineyard computation is
+              1D by design.
+    \end{itemize}
+    \note{Being upfront about limits is good for a committee. ~1 min.}
+\end{frame}
+
+%========================================================================
+\section{Triangulation \& stratified meshing (StratMesh)}
+%========================================================================
+
+\begin{frame}{A second strand: triangulating manifolds}
+    \begin{columns}[T]
+        \begin{column}{0.56\textwidth}
+            Implementing the \textbf{Boissonnat--Kachanovich--Wintraecken}
+            algorithm --- a quantified version of Whitney's method.
+            \begin{itemize}
+                \item Perturbed Coxeter triangulation ($\tilde A_d$) as an ambient
+                      scaffold.
+                \item Low-dimensional simplices pushed away from $\M$; triangulate
+                      the intersections.
+                \item Guarantees: quality \& Hausdorff bounds, a piecewise-smooth
+                      homeomorphism.
+            \end{itemize}
+            \textbf{Status:} working for curves in $\R^2$ \emph{and} surfaces in
+            $\R^3$.
+        \end{column}
+        \begin{column}{0.44\textwidth}
+            \centering
+            \includegraphics[width=0.46\linewidth]{torus_bad.png}\hfill
+            \includegraphics[width=0.46\linewidth]{torus_good.png}\\
+            {\scriptsize Torus: constants near the paper (left) vs.\ relaxed
+            (right).}
+        \end{column}
+    \end{columns}
+    \vspace{0.2em}
+    {\footnotesize The paper's constants are \textbf{galactic} --- too small to be
+    useful --- but the method works with reasonable ones. Goal: dimensions
+    $\le 5$.}
+    \note{Real, running code with a caveat about the constants. ~2 min.}
+\end{frame}
+
+\begin{frame}{Roadmap to stratified meshing}
+    \begin{center}
+        manifolds \;$\to$\; manifolds with boundary \;$\to$\; piecewise-smooth
+        boundary \\[6pt] $\to$\; stratified spaces (strata meeting at nice angles)
+        \\[6pt] $\to$\; finitely many singularity types (Thom / Arnold)
+    \end{center}
+    \vspace{0.8em}
+    Manifold triangulation is the \textbf{first building block} of StratMesh's
+    goal: certified meshes of stratified spaces.
+    \note{The long-term arc tying the PhD to the grant. ~1 min.}
+\end{frame}
+
+%========================================================================
+\section{Plan}
+%========================================================================
+
+\begin{frame}{Ongoing and future work}
+    \begin{itemize}
+        \item \textbf{Global monodromy criteria} \hfill{\footnotesize(short term)}\\
+              {\footnotesize Extend the local analysis to loops of arbitrary size.}
+        \item \textbf{Case analysis / higher-order medial axis}
+              \hfill{\footnotesize(short term)}\\
+              {\footnotesize Which branches near a singularity allow pairing
+              changes --- a classification of $k$-th order medial-axis
+              singularities.}
+        \item \textbf{Higher dimensions} \hfill{\footnotesize(mid term)}\\
+              {\footnotesize $\R^3$ and beyond, on the 3D symmetry-set
+              classification.}
+        \item \textbf{Stratified meshing} \hfill{\footnotesize(mid--long term)}\\
+              {\footnotesize Certified meshes of stratified spaces under StratMesh.}
+    \end{itemize}
+    \note{Timeline for the committee: this year vs later. ~1.5 min.}
+\end{frame}
+
+\begin{frame}{Output so far}
+    Two peer-reviewed workshop papers and one full preprint (all with Chambers,
+    Fillmore, Mukherjee, Stephenson, Wintraecken):
+    \begin{itemize}
+        \item[{[P1]}] \emph{Bouquet: A Visualization Tool for Symmetry Sets and
+              Vineyards.} EuroCG 2026.
+        \item[{[P2]}] \emph{The symmetry set as a knitting pattern for vineyards.}
+              CG:YRF 2026.
+        \item[{[P3]}] \emph{The Singular Source of Vineyard Monodromy.} 2026,
+              arXiv:2607.01046 (submitted to SODA).
+    \end{itemize}
+    \note{Quick -- they have the report. ~0.5 min.}
+\end{frame}
+
+% \section{References}
+% \begin{frame}[allowframebreaks]{References}
+% \footnotesize
+%     \printbibliography
+% \end{frame}
+
+\begin{frame}[plain]
+	\begin{center}
+		{\Huge Thank You!}
+
+		\bigskip\bigskip
+
+		{\LARGE Questions?}
+
+		\bigskip
+		{\footnotesize Bouquet2D: \url{https://bouquet2d.rohitroy.me}}
+	\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

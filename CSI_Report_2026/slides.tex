@@ -147,6 +147,30 @@ sorting=ynt
 \section{Context}
 %========================================================================
 
+\begin{frame}{A bit of background}
+    \begin{columns}[T]
+        \begin{column}{0.55\textwidth}
+            \textbf{Persistence diagram.} Sweep a threshold $t$ over the
+            sublevel sets $\{f\le t\}$ of a function $f\colon X\to\R$.
+            \begin{itemize}
+                \item A feature (component / loop / void) is \textbf{born} at
+                      $t=b$ and \textbf{dies} at $t=d\ge b$.
+                \item Record it as a point $(b,d)$ above the diagonal.
+            \end{itemize}
+            \vspace{0.2em}
+            $\Dgm(f)$ = the multiset of all such birth--death pairs.\\[0.4em]
+            % {\footnotesize Persistence $d-b$: far from the diagonal = signal,
+            % near the diagonal = noise.}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \centering
+            \foreach \n in {1,...,6}{%
+                \only<\n>{\includegraphics[height=0.8\textheight]{pd\n.png}}%
+            }
+        \end{column}
+    \end{columns}
+\end{frame}
+
 \begin{frame}{The Radial Persistence Transform}
     \begin{columns}[T]
         \begin{column}{0.45\textwidth}
@@ -254,8 +278,7 @@ sorting=ynt
                 \item \textbf{Symmetry set} $\sym(\M)$: centres of circles tangent
                       to $\M$ in $\ge 2$ places.
                 \item \textbf{Generalized symmetry set}
-                      $\gsym(\M)=\sym(\M)\cup\foc(\M)$ = the \textbf{bifurcation
-                      set}: where the pairing can change.
+                      $\gsym(\M)=\sym(\M)\cup\foc(\M)$ also called as the \textbf{bifurcation set.}
             \end{itemize}
             \vspace{0.3em}
             % {\footnotesize Generic planar singularities are classified (Arnold;Bruce--Giblin--Gibson).}
@@ -308,8 +331,10 @@ sorting=ynt
         \end{column}
     \end{columns}
     \vspace{0.7em}
-    {\footnotesize Every ``no'' either reorders without re-pairing, or only creates
-    a low-persistence near-diagonal pair. }
+    \pause
+    While with large loops it is a bit more complicated, an $A_2/A_2$ singularity can be the cause of monodromy.
+    % {\footnotesize Every ``no'' either reorders without re-pairing, or only creates
+    % a low-persistence near-diagonal pair. }
     % First work to combine symmetry sets +
     % persistence + singularity theory.}
     % \note{State the theorem plainly. $A_1^2/A_1^2$ = transversal crossing of a
@@ -318,13 +343,8 @@ sorting=ynt
 
 \begin{frame}{Two facts that make the theory work}
     \begin{enumerate}
-        \item \textbf{Stability outside $\gsym(\M)$.} On a component of
-              $\R^2\setminus\gsym(\M)$ the pairing is constant. So a loop avoiding
-              $\gsym(\M)$ gives $k$ \textbf{unlinked circles} --- no monodromy.
-              All monodromy comes from circling singularities.
-        \item \textbf{The interchange mechanism.} Two vines can swap only if
-              $\gamma$ crosses both a \emph{birth--birth} and a \emph{death--death}
-              stratum ($\ge 4$ contact points, exactly two pairs).
+        \item \textbf{Stability outside $\gsym(\M)$.} On a component of $\R^2\setminus\gsym(\M)$ the combinatorics of the persistence diagram is stable. So a loop avoiding $\gsym(\M)$ gives $k$ \textbf{unlinked circles} --- no monodromy. All monodromy comes from singularities.
+        \item \textbf{The interchange mechanism.} Two vines can swap only if $\gamma$ crosses both a \emph{birth--birth} and a \emph{death--death} stratum ($\ge 4$ contact points, exactly two pairs).
     \end{enumerate}
     \vspace{0.3em}
     {\footnotesize Reordering of critical values always happens; the \textbf{elder
@@ -489,12 +509,9 @@ sorting=ynt
 
 \begin{frame}{Limitations of Bouquet2D}
     \begin{itemize}
-        \item \textbf{Planar only:} smooth curves in $\R^2$; no higher dimensions
-              yet.
-        \item \textbf{Sampling-sensitive:} the discrete symmetry set can miss or
-              add branches near singularities if the curve is under-sampled.
-        \item \textbf{Threshold-sensitive:} results depend on user-set constants
-              ($\epsilon_{\mathrm{rad}}$, sampling density) near singularities.
+        \item \textbf{Planar only:} smooth curves in $\R^2$; no higher dimensions yet.
+        \item \textbf{Sampling-sensitive:} the discrete symmetry set can miss or add branches near singularities if the curve is under-sampled.
+        \item \textbf{Threshold-sensitive:} results near singularities depend on user-set constants.
         % \item \textbf{Not built for scale:} the elementary vineyard computation is
         %       1D by design.
     \end{itemize}

@@ -125,7 +125,7 @@ sorting=ynt
 %----------------------------------------------------------------------------------------
 
 \title[CSI Meeting 2026]{CSI Meeting 2026}
-\subtitle{Vineyards, Monodromy, Symmetry Sets --- and a tool to see them \\ (also Triangulations)}
+\subtitle{Vineyards, Monodromy, Symmetry Sets, Triangulations and Bouquet2D}
 \author[Rohit Roy]{Rohit Roy}
 \institute[Inria, UCA]{Inria Centre at Universit\'e C\^ote d'Azur, Sophia Antipolis\\[2pt]
 \footnotesize Advisors: Mathijs Wintraecken, Pierre Alliez}
@@ -149,20 +149,24 @@ sorting=ynt
 
 \begin{frame}{A bit of background}
     \begin{columns}[T]
-        \begin{column}{0.55\textwidth}
-            \textbf{Persistence diagram.} Sweep a threshold $t$ over the
-            sublevel sets $\{f\le t\}$ of a function $f\colon X\to\R$.
+        \begin{column}{0.50\textwidth}
+            \textbf{Persistence diagram.} 
             \begin{itemize}
-                \item A feature (component / loop / void) is \textbf{born} at
-                      $t=b$ and \textbf{dies} at $t=d\ge b$.
-                \item Record it as a point $(b,d)$ above the diagonal.
+            \item Given a nested sequence of spaces (a \textbf{filtration}), topological features appear and disappear as the space grows. 
+            \item $\Dgm(f)$ = the multiset of all such birth--death pairs, with the points plotted in $\mathbb{R}^2$.
             \end{itemize}
-            \vspace{0.2em}
-            $\Dgm(f)$ = the multiset of all such birth--death pairs.\\[0.4em]
+            % Sweep a threshold $t$ over the sublevel sets $\{f\le t\}$ of a function $f\colon X\to\R$.
+            % \begin{itemize}
+            %     \item A feature (component / loop / void) is \textbf{born} at
+            %           $t=b$ and \textbf{dies} at $t=d\ge b$.
+            %     \item Record it as a point $(b,d)$ above the diagonal.
+            % \end{itemize}
+            % \vspace{0.2em}
+            % \\[0.4em]
             % {\footnotesize Persistence $d-b$: far from the diagonal = signal,
             % near the diagonal = noise.}
         \end{column}
-        \begin{column}{0.45\textwidth}
+        \begin{column}{0.50\textwidth}
             \centering
             \foreach \n in {1,...,6}{%
                 \only<\n>{\includegraphics[height=0.8\textheight]{pd\n.png}}%
@@ -266,7 +270,7 @@ sorting=ynt
 \end{frame}
 
 %========================================================================
-\section{The theory, briefly (P2, P3)}
+\section{The theory}
 %========================================================================
 
 \begin{frame}{Symmetry set, focal set, generalized symmetry set}
@@ -297,6 +301,13 @@ sorting=ynt
     \begin{figure}
         \centering
         \includegraphics[width=0.5\linewidth]{symmetry_focal_corrected_2.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Generic planar singularities}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.45\linewidth]{Singularities_labeled_cropped.png}
     \end{figure}
 \end{frame}
 
@@ -377,7 +388,7 @@ sorting=ynt
 % \end{frame}
 
 %========================================================================
-\section{Bouquet2D: the tool (P1)}
+\section{Bouquet2D: the tool}
 %========================================================================
 
 \begin{frame}{Why build a tool? -- Bouquet2D}
@@ -523,6 +534,13 @@ sorting=ynt
 %========================================================================
 
 \begin{frame}{A second strand: triangulating submanifolds}
+    Before we looked what the effect of singularities are on persistence. 
+    \vspace{2em}
+
+    In the future, we would want to use that to identify the singularities which we also want to triangulate, which brings us to the second part of the presentation.
+\end{frame}
+
+\begin{frame}{Triangulating submanifolds}
     Implementing the \textbf{Boissonnat--Kachanovich--Wintraecken} algorithm --- a quantified version of Whitney's method.
 
     % \textbf{Step 1:} Perturbing nearby vertices of the ambient triangulation away from the manifold

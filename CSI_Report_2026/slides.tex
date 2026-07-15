@@ -165,12 +165,14 @@ sorting=ynt
             % \\[0.4em]
             % {\footnotesize Persistence $d-b$: far from the diagonal = signal,
             % near the diagonal = noise.}
+            \only<7>{\textbf{Stability: }With small changes in the filtration, there are small changes in the persistence diagram.}
         \end{column}
         \begin{column}{0.50\textwidth}
             \centering
             \foreach \n in {1,...,6}{%
                 \only<\n>{\includegraphics[height=0.8\textheight]{pd\n.png}}%
             }
+            \only<7>{\includegraphics[height=0.8\textheight]{pd6.png}}
         \end{column}
     \end{columns}
 \end{frame}
